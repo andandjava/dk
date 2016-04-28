@@ -1,0 +1,14 @@
+life cycle methods of an activity
+can we append data from asynchTask to UI directly
+can we stop onResume method not to execute.
+if app goes to pause state/onDestroy state then how can we get the data
+why we are using volatile memory(it can be done using GC also)
+Have you published any app?how can we publish an app?
+which building tool supports Eclipse? Does gradle supports Eclipse?
+what is gradle?
+You opened many apps which are not closed/terminated(opened).if the stack is full then what happens?
+
+
+
+after asyncTask we get a command from server...such that u have to execute that particular UI and resend the data to server
+

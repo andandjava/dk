@@ -1,0 +1,24 @@
+Maps
+===
+display map
+placing marker
+multiple markers
+
+customising marker
+info window
+multiple markers info window
+infowindow click listener
+custom infowindow
+button click in infowindow
+multiple buttons clicks in infowindow
+line between two markers
+distance between  two markers
+path between two makers
+path among multiple markers
+getting current lat & long
+getting address by knowing lat & long
+getting lat & long by entering address
+ways of getting lat & long of current position
+getting address by clicking on map
+getting lat & long by clicking on map
+places api

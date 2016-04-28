@@ -1,0 +1,6 @@
+https://maps.googleapis.com/maps/api/place/search/json?location=17.3998,78.4766&radius=500&sensor=true&key=AIzaSyC-TMz3tOKw6wr40I1sSl-xL7gHv-DexQI
+
+https://maps.googleapis.com/maps/api/place/search/json?location=17.3998,78.4766&radius=500&types=restaurant&key=AIzaSyC-TMz3tOKw6wr40I1sSl-xL7gHv-DexQI
+
+http://sehpaathi.in/read-written-paper-experiences
+

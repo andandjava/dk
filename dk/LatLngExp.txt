@@ -1,0 +1,100 @@
+LatLng Example
+===============
+getting latitude & longitude of current location using gps provider and network provider.
+
+In some cases gps provider not returning the values so that we are using network provider also.
+
+permissions
+===========
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+
+Example
+=========
+
+MainActivity.java
+-----------------
+package com.example.latlngexp;
+
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.maps.MapActivity;
+
+import android.app.Activity;
+import android.content.Context;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
+
+public class MainActivity extends Activity {
+
+	Boolean gps_enable, network_enable;
+	LocationListener ll;
+	GoogleMap gmap;
+	MarkerOptions markeroption;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+
+		LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+		ll = new MyLocationListener();
+
+		gps_enable = manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+		Toast.makeText(this, "gps_enable" + gps_enable, Toast.LENGTH_LONG).show();
+		System.out.println("gps_enable" + gps_enable);
+
+		network_enable = manager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+		System.out.println("network_enable" + network_enable);
+		Toast.makeText(this, "network_enable" + network_enable,Toast.LENGTH_LONG).show();
+
+		manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, ll);
+		Location loc = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+		if (loc != null) {
+			Toast.makeText(this, "Latitude" + loc.getLatitude(),Toast.LENGTH_LONG).show();
+			Toast.makeText(this, "Longitude" + loc.getLongitude(),Toast.LENGTH_LONG).show();
+		} else {
+			Location location = manager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+			if (location != null) {
+				Toast.makeText(this, "Latitude" + location.getLatitude(),Toast.LENGTH_LONG).show();
+				Toast.makeText(this, "Longitude" + location.getLongitude(),Toast.LENGTH_LONG).show();
+				// Toast.makeText(this, "location details are null"
+				// ,Toast.LENGTH_LONG).show();
+
+			} else {
+				Toast.makeText(this, "location details are null",Toast.LENGTH_LONG).show();
+			}
+		}
+	}
+
+	class MyLocationListener implements LocationListener {
+
+		@Override
+		public void onLocationChanged(Location location) {
+		}
+
+		@Override
+		public void onProviderDisabled(String provider) {
+
+		}
+
+		@Override
+		public void onProviderEnabled(String provider) {
+
+		}
+
+		@Override
+		public void onStatusChanged(String provider, int status, Bundle extras) {
+
+		}
+
+	}
+}

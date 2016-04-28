@@ -1,0 +1,3 @@
+can we run activity class without single xml file-s
+can we run service without activity running..if so what type of service
+2:09 PM 11/18/2015

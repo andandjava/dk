@@ -1,0 +1,230 @@
+package com.example.mapsapps;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import org.json.JSONObject;
+
+import android.graphics.Color;
+import android.location.Location;
+import android.location.LocationManager;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
+import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
+import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
+
+public class MainActivity extends FragmentActivity {
+
+	GoogleMap gmap;
+	Double lt = 17.3998;
+	Double lg = 78.4766;
+
+	Double slt = 17.3998, slg = 78.4766, dlt = 17.4368, dlg = 78.4439;
+	private static final LatLng BASHEERBAGH = new LatLng(17.3998, 78.4766);
+	private static final LatLng AMEERPET = new LatLng(17.4368, 78.4439);
+	private static final LatLng SEC = new LatLng(17.4500, 78.5000);
+	private static final LatLng LOWER_MANHATTAN = new LatLng(17.4368, 78.4439);
+	private static final LatLng BROOKLYN_BRIDGE = new LatLng(17.4500, 78.5000);
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+
+		LatLng ll = new LatLng(lt, lg);
+
+
+		if (gmap == null) {
+			MapFragment map = (MapFragment) getFragmentManager()
+					.findFragmentById(R.id.map_frag);
+			gmap = map.getMap();
+		}
+
+		// line between two markers
+//		MarkerOptions marker1 = new MarkerOptions().position(AMEERPET).title(
+//				"Ameerpet");
+//		gmap.addMarker(marker1);
+//		MarkerOptions marker2 = new MarkerOptions().position(SEC).title(
+//				"Secunderabad");
+//		gmap.addMarker(marker2);
+//		gmap.addPolyline((new PolylineOptions()).add(AMEERPET, SEC));
+
+		// path between two markers
+
+		MarkerOptions options = new MarkerOptions();
+		options.position(LOWER_MANHATTAN);
+		options.position(BROOKLYN_BRIDGE);
+		gmap.addMarker(options);
+		String url = getMapsApiDirectionsUrl();
+		ReadTask downloadTask = new ReadTask();
+		downloadTask.execute(url);
+
+//		gmap.moveCamera(CameraUpdateFactory.newLatLngZoom(BROOKLYN_BRIDGE, 13));
+		addMarkers();
+
+		// code
+		MarkerOptions marker = new MarkerOptions().position(new LatLng(lt, lg))
+				.title("Title");
+		marker.icon(BitmapDescriptorFactory
+				.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+		// marker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE));
+		gmap.addMarker(marker);
+
+		CameraPosition cameraPosition = new CameraPosition.Builder()
+				.target(new LatLng(lt, lg)).zoom(12).build();
+
+		gmap.animateCamera(CameraUpdateFactory
+				.newCameraPosition(cameraPosition));
+
+		gmap.getUiSettings().setAllGesturesEnabled(true);
+		gmap.getUiSettings().setCompassEnabled(true);
+		gmap.getUiSettings().setMyLocationButtonEnabled(true);
+		gmap.getUiSettings().setZoomControlsEnabled(true);
+		gmap.getUiSettings().setZoomGesturesEnabled(true);
+		gmap.setTrafficEnabled(true);
+
+		// final Location loc=gmap.getMyLocation();
+
+		gmap.setInfoWindowAdapter(new InfoWindowAdapter() {
+
+			@Override
+			public View getInfoWindow(Marker arg0) {
+				return null;
+			}
+
+			@Override
+			public View getInfoContents(Marker arg0) {
+
+				View v = getLayoutInflater().inflate(R.layout.custom_layout,
+						null);
+				TextView tv = (TextView) v.findViewById(R.id.tv);
+				TextView tv2 = (TextView) v.findViewById(R.id.tv2);
+				tv.setText("Address is:");
+				tv2.setText("Basheerbagh");
+
+				return v;
+			}
+		});
+
+		gmap.setOnInfoWindowClickListener(new OnInfoWindowClickListener() {
+
+			@Override
+			public void onInfoWindowClick(Marker arg0) {
+				Toast.makeText(getApplicationContext(), "clicked info window",
+						Toast.LENGTH_LONG).show();
+			}
+		});
+
+	}
+
+	private class ReadTask extends AsyncTask<String, Void, String> {
+		@Override
+		protected String doInBackground(String... url) {
+			String data = "";
+			try {
+				HttpConnection http = new HttpConnection();
+				data = http.readUrl(url[0]);
+			} catch (Exception e) {
+				Log.d("Background Task", e.toString());
+			}
+			return data;
+		}
+
+		@Override
+		protected void onPostExecute(String result) {
+			super.onPostExecute(result);
+			new ParserTask().execute(result);
+		}
+	}
+
+	private class ParserTask extends
+			AsyncTask<String, Integer, List<List<HashMap<String, String>>>> {
+
+		@Override
+		protected List<List<HashMap<String, String>>> doInBackground(
+				String... jsonData) {
+
+			JSONObject jObject;
+			List<List<HashMap<String, String>>> routes = null;
+
+			try {
+				jObject = new JSONObject(jsonData[0]);
+				PathJSONParser parser = new PathJSONParser();
+				routes = parser.parse(jObject);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return routes;
+		}
+
+		@Override
+		protected void onPostExecute(List<List<HashMap<String, String>>> routes) {
+			ArrayList<LatLng> points = null;
+			PolylineOptions polyLineOptions = null;
+
+			// traversing through routes
+			for (int i = 0; i < routes.size(); i++) {
+				points = new ArrayList<LatLng>();
+				polyLineOptions = new PolylineOptions();
+				List<HashMap<String, String>> path = routes.get(i);
+
+				for (int j = 0; j < path.size(); j++) {
+					HashMap<String, String> point = path.get(j);
+
+					double lat = Double.parseDouble(point.get("lat"));
+					double lng = Double.parseDouble(point.get("lng"));
+					LatLng position = new LatLng(lat, lng);
+
+					points.add(position);
+				}
+
+				polyLineOptions.addAll(points);
+				polyLineOptions.width(2);
+				polyLineOptions.color(Color.BLUE);
+			}
+
+			gmap.addPolyline(polyLineOptions);
+		}
+	}
+
+	private String getMapsApiDirectionsUrl() {
+		String waypoints = "waypoints=optimize:true|"
+				+ LOWER_MANHATTAN.latitude + "," + LOWER_MANHATTAN.longitude
+				+ "|" + "|" + BROOKLYN_BRIDGE.latitude + ","
+				+ BROOKLYN_BRIDGE.longitude;
+
+		String sensor = "sensor=false";
+		String params = waypoints + "&" + sensor;
+		String output = "json";
+		String url = "https://maps.googleapis.com/maps/api/directions/"
+				+ output + "?" + params;
+		return url;
+	}
+
+	private void addMarkers() {
+		if (gmap != null) {
+			gmap.addMarker(new MarkerOptions().position(BROOKLYN_BRIDGE).title(
+					"First Point"));
+			gmap.addMarker(new MarkerOptions().position(LOWER_MANHATTAN).title(
+					"Second Point"));
+		}
+	}
+	
+}

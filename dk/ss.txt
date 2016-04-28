@@ -1,0 +1,29 @@
+openDatabase(String path, SQLiteDatabase.CursorFactory factory, int flags, DatabaseErrorHandler errorHandler)
+openDatabase(String path, SQLiteDatabase.CursorFactory factory, int flags)
+openOrCreateDatabase(String path, SQLiteDatabase.CursorFactory factory)
+openOrCreateDatabase(File file, SQLiteDatabase.CursorFactory factory)
+
+execSQL(String sql, Object[] bindArgs)
+
+DBHelper  SQLiteOpenHelper
+
+getReadableDatabase()
+getReadableDatabase()
+
+
+Queries can be created via the rawQuery() and query() methods or via the SQLiteQueryBuilder class .
+
+rawQuery() directly accepts an SQL select statement as input.
+
+
+query() provides a structured interface for specifying the SQL query.
+
+SQLiteQueryBuilder is a convenience class that helps to build SQL queries.
+
+Cursor cursor = getReadableDatabase().
+  rawQuery("select * from todo where _id = ?", new String[] { id }); 
+return database.query(DATABASE_TABLE, 
+  new String[] { KEY_ROWID, KEY_CATEGORY, KEY_SUMMARY, KEY_DESCRIPTION }, 
+  null, null, null, null, null); 
+dbName,columnNames,whereClause,selectionArgs,groupBy,having,orderBy
+

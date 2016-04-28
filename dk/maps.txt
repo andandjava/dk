@@ -1,0 +1,41 @@
+Google Maps
+===========
+
+1. Display maps
+2. place marker,marker click event,show address in popup window
+3. draw lines between markers without URL
+4.  Do samples on PlacesDetectionAPI (Shows the nearest places ) and GeoDataApi ( Display's 
+     Places list) .
+
+
+1. Download and configure. Google Play Services SDK
+
+2. Obtain API key from google console
+
+3. Specify Android Manifest settings
+
+  <permission
+      android:name="com.example.googlemaps.permission.MAPS_RECEIVE"
+      android:protectionLevel="signature" />
+
+
+   <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+   <uses-permission android:name="android.permission.INTERNET" />
+   <uses-permission android:name="com.google.android.providers.
+      gsf.permission.
+      READ_GSERVICES" />
+   
+   <uses-permission android:name="android.permission.
+      WRITE_EXTERNAL_STORAGE" />
+
+   <uses-permission android:name="android.permission.
+      ACCESS_COARSE_LOCATION" />
+   <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+   <uses-feature
+      android:glEsVersion="0x00020000"
+      android:required="true" />
+
+4. Required code 
+
+

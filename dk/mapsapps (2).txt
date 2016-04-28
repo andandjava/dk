@@ -1,0 +1,127 @@
+package com.example.mapsapps;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.w3c.dom.Document;
+
+import android.app.ProgressDialog;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.location.Location;
+import android.location.LocationManager;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
+
+public class MainActivity extends FragmentActivity  {
+    
+//      List<Overlay> mapOverlays;
+//      GeoPoint point1, point2;
+      LocationManager locManager;
+      Drawable drawable;
+      Document document;
+      GMapV2GetRouteDirection v2GetRouteDirection;
+      LatLng fromPosition;
+      LatLng toPosition;
+      GoogleMap mGoogleMap;
+      MarkerOptions markerOptions;
+      Location location ;
+      
+      @Override
+      protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            if (!isGooglePlayServicesAvailable()) {
+                finish();
+            }
+            setContentView(R.layout.activity_main);
+            v2GetRouteDirection = new GMapV2GetRouteDirection();
+//          SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager()
+//            .findFragmentById(R.id.map_frag);
+            
+            MapFragment supportMapFragment=(MapFragment) getFragmentManager().findFragmentById(R.id.map_frag);
+            mGoogleMap = supportMapFragment.getMap();
+
+            // Enabling MyLocation in Google Map
+            mGoogleMap.setMyLocationEnabled(true);
+            mGoogleMap.getUiSettings().setZoomControlsEnabled(true);
+            mGoogleMap.getUiSettings().setCompassEnabled(true);
+            mGoogleMap.getUiSettings().setMyLocationButtonEnabled(true);
+            mGoogleMap.getUiSettings().setAllGesturesEnabled(true);
+            mGoogleMap.setTrafficEnabled(true);
+            mGoogleMap.animateCamera(CameraUpdateFactory.zoomTo(12));
+            markerOptions = new MarkerOptions();
+            fromPosition = new LatLng(11.663837, 78.147297);
+            toPosition = new LatLng(11.723512, 78.466287);
+            GetRouteTask getRoute = new GetRouteTask();
+            getRoute.execute();
+      }
+      private boolean isGooglePlayServicesAvailable() {
+		// TODO Auto-generated method stub
+    	  int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+          if (ConnectionResult.SUCCESS == status) {
+              return true;
+          } else {
+              GooglePlayServicesUtil.getErrorDialog(status, this, 0).show();
+              return false;
+          }
+      }
+
+      private class GetRouteTask extends AsyncTask<String, Void, String> {
+           
+            private ProgressDialog Dialog;
+            String response = "";
+            @Override
+            protected void onPreExecute() {
+                  Dialog = new ProgressDialog(MainActivity.this);
+                  Dialog.setMessage("Loading route...");
+                  Dialog.show();
+            }
+
+            @Override
+            protected String doInBackground(String... urls) {
+                  //Get All Route values
+                        document = v2GetRouteDirection.getDocument(fromPosition, toPosition, GMapV2GetRouteDirection.MODE_DRIVING);
+                        response = "Success";
+                  return response;
+
+            }
+
+            @Override
+            protected void onPostExecute(String result) {
+                  mGoogleMap.clear();
+                  if(response.equalsIgnoreCase("Success")){
+                  ArrayList<LatLng> directionPoint = v2GetRouteDirection.getDirection(document);
+                  PolylineOptions rectLine = new PolylineOptions().width(10).color(
+                              Color.RED);
+
+                  for (int i = 0; i < directionPoint.size(); i++) {
+                        rectLine.add(directionPoint.get(i));
+                  }
+                  // Adding route on the map
+                  mGoogleMap.addPolyline(rectLine);
+                  markerOptions.position(toPosition);
+                  markerOptions.draggable(true);
+                  mGoogleMap.addMarker(markerOptions);
+
+                  }
+                 
+                  Dialog.dismiss();
+            }
+      }
+      @Override
+      protected void onStop() {
+            super.onStop();
+            finish();
+      }
+}

@@ -1,0 +1,62 @@
+1. Data Base Management System (DBMS) – 15-20 Questions
+========================================================
+RDBMS
+Normalization
+Overview of SQL queries
+E- R Diagrams
+Transaction Management
+
+2. Data Communication & Networking – 10-15 Questions
+====================================================
+Network Architecture
+OSI Model
+TCP-IP Model
+Data Communication
+IP Addressing (Subnetting)
+
+3. Operating System – 4-5 Questions
+===================================
+Process
+Thread
+Types of OS
+Semaphore
+Scheduling
+Dead Lock
+Memory Partitioning
+Page Replacement
+
+4. Computer organization + Hardware (Microprocessor ) – 4-5 Questions
+======================================================================
+Bus Structure
+
+5. Network Security – 2 – 3 Questions
+=====================================
+Cyber Crimes
+Risk Management
+Firewall
+Cryptography
+
+6. Software Engineering – 2 – 3 Questions
+=========================================
+Software Development life cycle (SDLC)
+Software Development Models
+
+7. Data Structures – 3 – 4 Questions
+====================================
+Array
+Linked List
+Stacks
+
+8. Web Technologies – 1-2 Questions
+===================================
+HTML Tags
+XML
+Network Security
+
+9. Programming Languages (BASIC)  – 1-2 Questions
+=================================================
+C, C++
+OOP (Objected oriented Programming)
+
+
+Read more: http://www.bankersadda.com/2015/02/it-officer-syllabus-professional.html#ixzz3lJCKe0bo

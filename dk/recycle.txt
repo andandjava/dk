@@ -1,0 +1,4 @@
+recyclerview with custom layout
+recyclerview with card view
+recyclerview setting dynamic text and image.
+re

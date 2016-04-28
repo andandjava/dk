@@ -1,0 +1,117 @@
+Activity and Fragment Lifecycle
+Difference between Service and Broadcast Receiver
+Difference between Thread and AsynTask
+Difference between Aysntask and IntentService
+What is content providers
+Passing data from activity to fragment and vice versa
+Passing data from one fragment to another fragment (most imp)
+Difference between Retrofit vs mcxiaoke/android-volley
+Difference between Picasso vs Universal Image Loader vs Glide vs Fresco
+How do you support multiple screen in android
+Manifest permissions
+Difference between dp and pixels
+What is intent filter
+How to debug android app
+
+Passing data between Fragments to Activities and vice-versa.
+Difference b/w Service and Broadcasts.
+Difference b/w Service and Async Task.
+Difference b/w Service, Async Task, Threads and Handlers.
+Manifest permissions related questions (most simple but tricky ones).
+Package related questions.
+Content Providers (mostly not in detail). 
+Activity and Fragment lifecycles.
+Services related questions are quite prime.
+
+
+Basic java :
+Static and non-static variable/methods questions. 
+Callbacks and Singleton.
+Parcelable and Serializable.
+
+Synchronous and asynchronous operations?
+
+What's .Dex format? How are applications run in sandbox environment?
+
+Explain the life cycle of an application development process you worked on previously.
+
+What the interviewer looks for is communication of requirements, planning, modeling, construction and deployment on the back end.
+
+Here's a hypothetical project. Explain how you would go about it.
+
+They want to know how you would break your work down into tasks and how many weeks for each task. I'm really looking to find out about planning methods, their skill set and how quickly they can execute.
+
+How do you respond to requirement changes in the middle of a cycle?
+
+What type of methodology have you used in the past? What are its drawbacks?
+
+What are different techniques for prototyping an application?
+
+Similar question: Do you feel there is value in wireframing an application? Why?
+
+How do you manage conflicts in Web applications when there are different people managing data?
+
+Tell me something you learned from a team member in the last year.
+
+What software testing procedures have you used to perform a QA?
+
+Once the coding skills verified. Sample I
+
+· The Activity life cycle is must. Ask about the different phases of Activity Life cycle. For example: when and how the activity comes to foreground?
+
+· Check the knowledge on AndroidManifest file, For example: Why do we need this file, What is the role of this file in Android app development.
+
+· Different Kinds of Intents
+
+· Ask about different Kinds of context
+
+· Ask about different Storage Methods in android
+
+· Kinds of Log debugger and Debugger Configuration
+
+· How to debug the application on real device.
+
+· How do you ensure that the app design will be consistent across the different screen resolutions
+
+· Thread concepts also plus points as we deal with the treads more.
+
+· Can you able to build custom views and how?
+
+· How to create flexible layouts, For example to place English, Chinese fonts.
+
+· What is localization and how to achieve?
+
+· What are 9-patch images
+
+· How to avoid ANR status
+
+· How to do Memory management
+
+· Ask about IPC
+
+· What is onCreate(Bundle savedInstanceState), Have you used savedInstanceState when and why?
+
+· To check how updated the person is just ask about what are Fragments in an Activity
+
+If this is an Android specific job, just ask the obvious stuff. Sample II
+
+Application lifecycle
+
+When to use a service
+
+How to use a broadcast receiver and register it both in the manifest and in code
+
+Intent filters
+
+Stuff about what manifest attributes and tags mean
+
+The types of flags to run an application
+FLAG_ACTIVITY_NEW_TASK
+FLAG_ACTIVITY_CLEAR_TOP
+etc
+How to do data intensive calculations using threads
+
+Passing large objects (that can't be passed via intents and shouldn't be serialized) via a service
+Binding to a service and the service lifecycle
+
+How to persist data (both savedInstanceState and more permanent ways)

@@ -1,0 +1,11 @@
+Transaction Reference Number :	FSMP4296741432
+Transaction Date and Time :	16-02-2016 17:00:27
+Service Number :	1622502000138
+Service Type :	SL
+Circle Name :	GUNTUR
+ERO code :	162
+Arrear Amount :	0
+Current Demand :	150
+ACD Amount :	0
+Reconnection Fee :	0
+Total Amount :	150.00

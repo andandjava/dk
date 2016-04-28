@@ -1,0 +1,73 @@
+stable channel--1.5.1 (December 3rd, 2015) http://tools.android.com/download/studio/stable
+dev channel--2.0 Beta 2 (February 5th, 2016)
+beta channel--2.0 Beta 2 (February 5th, 2016)
+canary channel--Latest Build: 2.0 Beta 2 (February 4th, 2016)
+
+
+sdk platform-- Android 6.0(revision2)
+Android Studio v1.5.1 (December 2015)
+Build Tools, Revision 23.0.2 (November 2015)
+SDK Platform-tools, Revision 23.1.0 (December 2015)
+Android Plugin for Gradle, Revision 1.5.0 (November 2015)
+
+present using
+-------------
+android studio version 1.1.0
+gradle version 2.2.1
+gradle plugin version  1.2.3
+build tool version 22.0.1
+sdk version API23 Android 6.0
+
+
+Tools
+-----
+adb,android,AVD manager, bmgr, Desktop Head Unit, Device Moniter, dmtracedump,Draw 9-patch, etc1tool, Hierarchy Viewer, hprof-conv, jobb, lint, logcat, mksdcard, ProGuard, Tracer for OpenGL ES, Virtual Device Emulator, zipalign.
+
+
+command line tools--adb
+shell tools--bmgr
+stand alone tool--android device moniter
+debugging tool-- DDMS
+static code analysis tool--lint
+optimising tool--proguard
+archieve alignment tool--zipalign
+
+
+adb-- versatile command line tool 
+bmgr--is a shell tool
+Android Device Monitor--stand-alone tool 
+DDMS--debugging tool
+The jobb tool allows you to build encrypted and unencrypted APK expansion files in Opaque Binary Blob (OBB) format. 
+The Android lint tool is a static code analysis tool 
+The ProGuard tool shrinks, optimizes, and obfuscates your code by removing unused code and renaming classes, fields, and methods with semantically obscure names.
+Tracer is a tool for analyzing OpenGL for Embedded Systems (ES) code in your Android application
+zipalign is an archive alignment tool that provides important optimization to Android application (.apk) files.
+
+
+Android Device Monitor is a stand-alone tool that provides a graphical user interface for several Android application debugging and analysis tools. The Monitor tool does not require installation of an integrated development environment, such as Android Studio, and encapsulates the following tools:
+
+DDMS
+Tracer for OpenGL ES
+Hierarchy Viewer
+Systrace
+Traceview
+Pixel Perfect magnification viewer
+
+
+
+
+
+
+
+
+
+
+App Services
+------------
+  Ad Networks (AdMob, mopub, etc.)
+ Cloud Computing (Google Cloud, AWS, heroku, etc.)
+ Push Notifications (Google Cloud Messaging, Parse, Urban AirShip, etc)
+ Analytics ( Google Analytics, Flurry, etc.)
+ Authentication (Google+, Facebook, Twitter, etc.)
+ Geo/Location Services (Google Maps, Bing Maps, etc.)
+ Payments (Google Wallet, Facebook Payments, etc.)

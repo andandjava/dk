@@ -1,0 +1,11 @@
+use wrap_content and match_parent instead of dps
+for images use nine patch image tool
+use relative layout
+use weight parameters.
+for tabs take 
+		res/layout/main_activity.xml           # For handsets
+		res/layout-sw600dp/main_activity.xml   # For tablets
+
+		res/layout/main_activity.xml           # For handsets (smaller than 600dp available width)
+		res/layout-sw600dp/main_activity.xml   # For 7” tablets (600dp wide and bigger)
+		res/layout-sw720dp/main_activity.xml   # For 10” tablets (720dp wide and bigger)

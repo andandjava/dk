@@ -1,0 +1,21 @@
+PendingIntent
+-------------
+A pending intent is a token that you give to another application (e.g., notification manager, alarm manager or other 3rd party applications), which allows this other application to use the permissions of your application to execute a predefined piece of code.
+
+To perform a broadcast via a pending intent, get a PendingIntent via the getBroadcast() method of the PendingIntent class. To perform an activity via a pending intent, you receive the activity via PendingIntent.getActivity().
+
+PendingIntent.getActivity()
+
+PendingIntent
+.getActivities()
+PendingIntent
+.getService()
+PendingIntent
+.getBroadcast()
+
+is a token which gives permission to another application to execute a piece of code.
+
+A PendingIntent is a token that you give to a foreign application (e.g. NotificationManager , AlarmManager , Home Screen AppWidgetManager , or other 3rd party applications), which allows the foreign application to use your application's permissions to execute a predefined piece of code
+
+http://codetheory.in/android-pending-intents/
+

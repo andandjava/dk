@@ -1,0 +1,65 @@
+TimerTask
+------------
+package com.example.alarmexp;
+
+import java.util.Timer;
+import java.util.TimerTask;
+
+import android.app.Activity;
+import android.app.AlarmManager;
+import android.content.Context;
+import android.os.Bundle;
+import android.os.Handler;
+import android.widget.Toast;
+
+public class MainActivity extends Activity {
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+		
+		AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+		int interval = 8000;
+		
+//		Handler handler = new Handler();
+//	    handler.postDelayed 
+//	               (new Runnable() {
+//
+//	              @Override
+//	                 public void run() {
+////	                            toast.cancel();
+////	                            toast = Toast.makeText(getApplicationContext(), text.getText().toString(),Toast.LENGTH_SHORT);
+////	                            toast.show();
+//	            	  Toast.makeText(getApplicationContext(), "message",Toast.LENGTH_SHORT);
+//	            }
+//	        }, 1000);
+		
+		Timer timer=new Timer();
+		 timer.schedule(new TimerTask() {
+
+		        @Override
+		        public void run() {
+		            runOnUiThread(new Runnable() {
+
+		                @Override
+		                public void run() {
+		                    final Toast toast = Toast.makeText(getApplicationContext(), "msg",Toast.LENGTH_SHORT);
+		                    toast.show();
+		                    System.out.println("bbb");
+		                    Handler handler = new Handler();
+		                    handler.postDelayed(new Runnable() {
+
+		                        @Override
+		                        public void run() {
+		                            toast.cancel();
+		                        }
+		                    }, 1000);
+
+		                }
+		            });
+		        	System.out.println("sss");
+		        }
+		    }, 0, 10000);
+	}
+}

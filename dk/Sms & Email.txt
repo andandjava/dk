@@ -1,0 +1,72 @@
+Sending SMS messages using Intent
+-----------------------------------------------------
+public void onClick(View v)
+{
+Intent i=new Intent(android.content.Intent.ACTION_VIEW);
+
+i.putExtra("address", "9848586878;9848586879");
+
+i.putExtra("sms_body", "Test SMS");
+
+i.setType("vnd.android-dir/mms-sms");
+
+startActivity(i);
+}
+
+; so that in the click event of the Button, the implicit intent will be fired to Android System and it invokes the default messaging application in the device.
+
+***************************************
+SENDING E-MAILS
+---------------------------
+
+1) Create an Android Project
+
+2) In activity_main.xml - place  3 EditTexts  (to address, subject, body) and a Button
+
+3) MainActivity.java
+
+public class MainActivity extends Activity implements OnClickListener 
+{
+EditText ed1,ed2,ed3;
+Button b;
+protected void onCreate(Bundle savedInstanceState) 
+{
+super.onCreate(savedInstanceState);
+setContentView(R.layout.activity_main);
+
+ed1=(EditText)findViewById(R.id.editText1);
+ed2=(EditText)findViewById(R.id.editText2);
+ed3=(EditText)findViewById(R.id.editText3);
+
+b=(Button)findViewById(R.id.button1);
+b.setOnClickListener(this);
+}
+public void onClick(View v) 
+{
+String to=ed1.getText().toString().trim();
+String subject=ed2.getText().toString();
+String body=ed3.getText().toString();
+
+Intent i=new Intent(Intent.ACTION_SEND);
+
+i.setData(Uri.parse("mailto:"));
+
+String[] addr={to};
+String[] cc={"enqury@peerstech.com"};
+
+i.putExtra(Intent.EXTRA_EMAIL, addr);
+
+i.putExtra(Intent.EXTRA_CC, cc);
+
+i.putExtra(Intent.EXTRA_SUBJECT,                                                       subject);
+
+i.putExtra(Intent.EXTRA_TEXT, body);
+
+i.setType("message/rfc822");
+startActivity(i);
+}
+}
+
+the implicit intent makes the Gmail application configured in the android device to send the email
+
+

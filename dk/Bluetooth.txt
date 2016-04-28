@@ -1,0 +1,201 @@
+BLUETOOTH
+-------------------
+Bluetooth is a communications protocol designed for short-range, low-bandwidth peer-to-peer communications.
+
+Bluetooth is a way to exchange data with other devices wirelessly. Android provides Bluetooth API to perform several tasks such as:
+
+ (a)  scan bluetooth devices
+ (b) connect and transfer data from and to other devices
+
+
+In Android, Bluetooth devices and connections are handled by the following classes:
+
+BluetoothAdapter  - The BluetoothAdapter represents the local Bluetooth device—that is, the Android device on which the application is running.
+
+BluetoothDevice -  Each remote device with which you wish to communicate is represented as a BluetoothDevice.
+
+BluetoothSocket  - Call createRfcommSocketToServiceRecord on a remote Bluetooth Device object to create a BluetoothSocket that will let you make a connection request to the remote device, and then initiate communications.
+
+BluetoothServerSocket - By creating a Bluetooth Server Socket (using the listenUsingRfcommWithServiceRecord method) on your local Bluetooth Adapter, you can listen for incoming connection requests from Bluetooth Sockets on remote devices.
+
+BluetoothAdapter class
+----------------------------------
+By the help of BluetoothAdapter class, we can perform fundamental tasks such as initiate device discovery, query a list of paired (bonded) devices, create a BluetoothServerSocket instance to listen for connection requests etc.
+
+Constants of BluetoothAdapter class::
+------------------------------------------------------
+BluetoothAdapter class provides many constants. Some of them are as follows:
+
+    String ACTION_REQUEST_ENABLE
+    String ACTION_REQUEST_DISCOVERABLE
+    String ACTION_DISCOVERY_STARTED
+    String ACTION_DISCOVERY_FINISHED
+
+Methods of BluetoothAdapter class
+--------------------------------------------------
+1) static BluetoothAdapter                                                             getDefaultAdapter() 
+
+2) boolean enable()- enables the bluetooth adapter if it is disabled.
+
+3) boolean isEnabled()- returns true if the bluetooth adapter is enabled.
+
+4) boolean disable() - disables the bluetooth adapter if it is enabled.
+
+5) String getName() - returns the name of the bluetooth adapter.
+
+6) boolean setName(String name) -changes the bluetooth name.
+
+7) int getState() - returns the current state of the local bluetooth adapter.
+
+8) Set<BluetoothDevice> getBondedDevices() - returns a set of paired (bonded) BluetoothDevice objects.
+
+9) boolean startDiscovery() - starts the discovery process.
+
+
+Android Application to enable, disable and make discoverable bluetooth 
+---------------------------------------------------------
+1) Create a New Android Project
+
+2) In activity_main.xml - place 03 Buttons (Turn On, Discoverable,Turn Off) and a TextView
+
+3) Provide the following permissions in AndroidManifest.xml
+
+android.permission.BLUETOOTH
+android.permission.BLUETOOTH_ADMIN
+
+5) MainActivity.java
+
+public class MainActivity extends Activity implements OnClickListener 
+{
+TextView tv;
+Button b1,b2,b3;
+BluetoothAdapter adapter;
+
+protected void onCreate(Bundle savedInstanceState) 
+{
+super.onCreate(savedInstanceState);
+setContentView(R.layout.activity_main);
+
+tv=(TextView)findViewById(R.id.textView1);
+
+b1=(Button)findViewById(R.id.button1);
+b2=(Button)findViewById(R.id.button2);
+b3=(Button)findViewById(R.id.button3);
+
+b1.setOnClickListener(this);
+b2.setOnClickListener(this);
+b3.setOnClickListener(this);
+
+adapter=BluetoothAdapter.getDefaultAdapter();
+
+if(adapter.isEnabled())
+{
+String name=adapter.getName();
+String address=adapter.getAddress();
+tv.setText("BT Enabled\n");
+tv.append("Name - "+name+"\n");
+tv.append("Address - "+address);
+}
+else
+{
+tv.setText("Bluetooth is NOT Enabled... Click on button to Enable it");	
+}
+}//onCreate
+
+public void onClick(View v) 
+{
+if(v==b1) // to turn on BT
+{
+if(adapter.isEnabled())
+{
+tv.setText("BT is already Enabled\n");	
+tv.append(adapter.getName()+"\n" +adapter.getAddress());
+}
+else
+{
+Intent i=new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);  
+startActivityForResult(i,1);  	
+}//else
+}//if
+
+else if(v==b2)//make BT discoverable
+{
+if(adapter.isDiscovering()) 
+{  
+tv.setText("BT is already Discoverable");
+}
+else
+{
+tv.setText("Making Bluetooth Discoverable");
+
+Intent i=new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);  
+startActivityForResult(i,2);
+}
+}//else if
+
+else //Turn off BT
+{
+tv.setText("Turning off BT");
+adapter.disable();
+}
+}
+}
+********************************
+
+Android App  for Discovering remote Bluetooth Devices
+-------------------------------------------------------
+1) Create a New Android project
+
+2) In activity_main.xml - place a Button, ScrollView and inside that a TextView
+
+3) Provide the permission BLUETOOTH and BLUETOOTH_ADMIN in AndroidManifest.xml
+
+4) MainActivity.java
+
+public class MainActivity extends Activity implements OnClickListener 
+{
+Button b;
+TextView tv;
+BluetoothAdapter adapter;
+BroadcastReceiver br;
+
+protected void onCreate(Bundle savedInstanceState) 
+{
+super.onCreate(savedInstanceState);
+setContentView(R.layout.activity_main);
+
+tv=(TextView)findViewById(R.id.textView1);
+
+b=(Button)findViewById(R.id.button1);
+b.setOnClickListener(this);
+
+adapter=BluetoothAdapter.getDefaultAdapter();
+
+if(!adapter.isEnabled())
+ adapter.enable();
+
+br=new BroadcastReceiver() 
+{
+ public void onReceive(Context context,  Intent intent) 
+ {
+ String name=intent.getStringExtra            (BluetoothDevice.EXTRA_NAME);
+ tv.append(name+"\n");
+
+/*
+BluetoothDevice remoteDevice
+=intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+*/
+}
+};
+
+registerReceiver(br,new IntentFilter(BluetoothDevice.ACTION_FOUND));
+}
+
+public void onClick(View v) 
+{
+tv.setText("");
+adapter.startDiscovery();	
+}
+}
+
+**********************************

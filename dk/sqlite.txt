@@ -1,0 +1,50 @@
+SQLite is an open-source relational database i.e. used to perform database operations on android devices such as storing, manipulating or retrieving persistent data from the database.
+
+The process of storing data to permanent place and retrieving data from permanent place is called as
+persistence and such data is called as persistent data.
+
+It is embedded in android bydefault. So, there is no need to perform any database setup or administration task.
+
+classes used 
+SQLiteOpenHelper class
+SQLiteDatabase class
+
+
+SQLiteOpenHelper class
+----------------------
+SQLiteOpenHelper class provides the functionality to use the SQLite database.
+
+The android.database.sqlite.SQLiteOpenHelper class is used for database creation and version management
+
+constructor---creates an object for creating, opening and managing the database.
+              database created (if exist wont create database if not create database).
+
+The android.database.sqlite.SQLiteOpenHelper class is used for database creation and version management. For performing any database operation, you have to provide the implementation of onCreate() and onUpgrade() methods of SQLiteOpenHelper class.
+
+constructors
+methods
+onCreate():table will be created
+SQLiteDatabase.execSQL("create table emp(empno integer primary key autoincrement,ename text,sal integer);");
+onUpgrade()
+
+public abstract void onCreate(SQLiteDatabase db)	called only once when database is created for the first time.
+public abstract void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)	called when database needs to be upgraded.
+
+SQLiteDatabase class
+--------------------
+It contains methods to be performed on sqlite database such as create, update, delete, select etc.
+
+How can we get  SQLiteDatabase class
+
+getReadable
+getWritable
+
+rawQuery() directly accepts an SQL select statement as input.
+query() provides a structured interface for specifying the SQL query.
+
+Cursor cursor = getReadableDatabase().rawQuery("select * from todo where _id = ?", new String[] { id }); 
+
+Cursor cursor=database.query(DATABASE_TABLE,new String[] { KEY_ROWID, KEY_CATEGORY, KEY_SUMMARY, KEY_DESCRIPTION }, null, null, null, null, null); 
+               dbName,columnNames,whereClause,selectionArgs,groupBy,having,orderBy
+
+
